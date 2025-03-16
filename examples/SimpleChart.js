@@ -8,22 +8,28 @@ const client = new TradingView.Client(); // Creates a websocket client
 
 const chart = new client.Session.Chart(); // Init a Chart session
 
-chart.setMarket('BINANCE:BTCEUR', { // Set the market
+chart.setMarket('BINANCE:BTCEUR', {
+  // Set the market
   timeframe: 'D',
 });
 
-chart.onError((...err) => { // Listen for errors (can avoid crash)
+chart.onError((...err) => {
+  // Listen for errors (can avoid crash)
   console.error('Chart error:', ...err);
   // Do something...
 });
 
-chart.onSymbolLoaded(() => { // When the symbol is successfully loaded
+chart.onSymbolLoaded(() => {
+  // When the symbol is successfully loaded
   console.log(`Market "${chart.infos.description}" loaded !`);
 });
 
-chart.onUpdate(() => { // When price changes
+chart.onUpdate(() => {
+  // When price changes
   if (!chart.periods[0]) return;
-  console.log(`[${chart.infos.description}]: ${chart.periods[0].close} ${chart.infos.currency_id}`);
+  console.log(
+    `[${chart.infos.description}]: ${chart.periods[0].close} ${chart.infos.currency_id}`
+  );
   // Do something...
 });
 
